@@ -7,7 +7,7 @@ function Cart() {
   const { cart, setCart, removeFromCart } =
     useOutletContext<OutletContextTypes>();
 
-  function handleAmountChange(type: string, id: number) {
+  function handleAmountChange(type: 'increment' | 'decrement', id: number) {
     const item: CartItemType | undefined = cart.find(
       (item: CartItemType) => item.id === id,
     );
