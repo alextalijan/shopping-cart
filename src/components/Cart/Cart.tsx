@@ -8,13 +8,15 @@ function Cart() {
     useOutletContext<OutletContextTypes>();
 
   function handleAmountChange(type: string, id: number) {
-    const item: CartItemType | undefined = cart.find((item) => item.id === id);
+    const item: CartItemType | undefined = cart.find(
+      (item: CartItemType) => item.id === id,
+    );
     let newCart;
 
     if (!item) return;
 
     if (type === 'increment') {
-      newCart = cart.map((item) => {
+      newCart = cart.map((item: CartItemType) => {
         if (item.id === id) {
           return { ...item, amount: item.amount + 1 };
         }
@@ -23,7 +25,7 @@ function Cart() {
       });
     } else {
       if (item.amount > 1) {
-        newCart = cart.map((item) => {
+        newCart = cart.map((item: CartItemType) => {
           if (item.id === id) {
             return { ...item, amount: item.amount - 1 };
           }

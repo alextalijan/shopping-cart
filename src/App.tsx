@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { Outlet, Link } from 'react-router-dom';
 
-type ShopItem = {
+export type ShopItemType = {
   id: number;
   title: string;
   price: number;
   imageSrc: string;
 };
 
-export type CartItemType = ShopItem & {
+export type CartItemType = ShopItemType & {
   amount: number;
 };
 
@@ -22,7 +22,7 @@ type ApiProduct = {
 type ApiResponse = ApiProduct[];
 
 export type OutletContextTypes = {
-  shopItems: ShopItem[];
+  shopItems: ShopItemType[];
   loadingShop: boolean;
   shopError: string | null;
   cart: CartItemType[];
@@ -39,7 +39,7 @@ export type OutletContextTypes = {
 
 function App() {
   const [cart, setCart] = useState<CartItemType[]>([]);
-  const [shopItems, setShopItems] = useState<ShopItem[]>([]);
+  const [shopItems, setShopItems] = useState<ShopItemType[]>([]);
   const [loadingShop, setLoadingShop] = useState<boolean>(true);
   const [shopError, setShopError] = useState<string | null>(null);
 
@@ -100,7 +100,7 @@ function App() {
         return response.json();
       })
       .then((data: ApiResponse) => {
-        const items: ShopItem[] = [];
+        const items: ShopItemType[] = [];
 
         for (let i = 0; i < 10; i += 1) {
           items.push({

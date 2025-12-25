@@ -4,6 +4,7 @@ import styles from './Shop.module.css';
 import Announcer from '../Announcer/Announcer';
 import { useState } from 'react';
 import { OutletContextTypes } from '@/App.js';
+import { ShopItemType } from '@/App.js';
 
 export type AnnouncerType = {
   title: string;
@@ -22,7 +23,7 @@ function Shop() {
       {loadingShop && <p className={styles.loading}>Loading...</p>}
       {shopError && <p className={styles.error}>{shopError}</p>}
       <div className={styles['shop-list']}>
-        {shopItems.map((item) => {
+        {shopItems.map((item: ShopItemType) => {
           return (
             <ShopItem
               key={item.id}
