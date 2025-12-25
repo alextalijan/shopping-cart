@@ -1,5 +1,15 @@
 import styles from './CartItem.module.css';
 
+type PropTypes = {
+  id: string;
+  title: string;
+  imageSrc: string;
+  price: number;
+  amount: number;
+  onClick(): void;
+  handleAmountChange(action: string, id: string): void;
+};
+
 function CartItem({
   id,
   title,
@@ -8,7 +18,7 @@ function CartItem({
   amount,
   onClick,
   handleAmountChange,
-}) {
+}: PropTypes) {
   return (
     <div className={styles.card} data-testid="cart-item">
       <span className={styles.title}>{title}</span>
