@@ -2,13 +2,36 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { Outlet, Link } from 'react-router-dom';
 
-function App() {
-  const [cart, setCart] = useState([]);
-  const [shopItems, setShopItems] = useState([]);
-  const [loadingShop, setLoadingShop] = useState(true);
-  const [shopError, setShopError] = useState(null);
+type ShopItem = {
+  id: number;
+  title: string;
+  price: number;
+  imageSrc: string;
+};
 
-  function addToCart(id, title, imageSrc, price, amount) {
+type CartItem = Pick<ShopItem, 'id' | 'title' | 'price'> & { amount: number };
+
+type ApiProduct = {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+};
+type ApiResponse = ApiProduct[];
+
+function App() {
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [shopItems, setShopItems] = useState<ShopItem[]>([]);
+  const [loadingShop, setLoadingShop] = useState<boolean>(true);
+  const [shopError, setShopError] = useState<string | null>(null);
+
+  function addToCart(
+    id: number,
+    title: string,
+    imageSrc: string,
+    price: number,
+    amount: number,
+  ): void {
     if (amount === 0) return;
 
     const addedItem = {
@@ -42,7 +65,7 @@ function App() {
     setCart([...cart, addedItem]);
   }
 
-  function removeFromCart(id) {
+  function removeFromCart(id: number): void {
     setCart(cart.filter((item) => item.id !== id));
   }
 
@@ -57,8 +80,8 @@ function App() {
 
         return response.json();
       })
-      .then((data) => {
-        const items = [];
+      .then((data: ApiResponse) => {
+        const items: ShopItem[] = [];
 
         for (let i = 0; i < 10; i += 1) {
           items.push({
