@@ -9,7 +9,9 @@ type ShopItem = {
   imageSrc: string;
 };
 
-type CartItem = Pick<ShopItem, 'id' | 'title' | 'price'> & { amount: number };
+export type CartItemType = Pick<ShopItem, 'id' | 'title' | 'price'> & {
+  amount: number;
+};
 
 type ApiProduct = {
   id: number;
@@ -19,8 +21,24 @@ type ApiProduct = {
 };
 type ApiResponse = ApiProduct[];
 
+export type OutletContextTypes = {
+  shopItems: ShopItem[];
+  loadingShop: boolean;
+  shopError: string | null;
+  cart: CartItemType[];
+  addToCart(
+    id: number,
+    title: string,
+    imageSrc: string,
+    price: number,
+    amount: number,
+  ): void;
+  setCart: React.Dispatch<React.SetStateAction<CartItemType[]>>;
+  removeFromCart(id: number): void;
+};
+
 function App() {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItemType[]>([]);
   const [shopItems, setShopItems] = useState<ShopItem[]>([]);
   const [loadingShop, setLoadingShop] = useState<boolean>(true);
   const [shopError, setShopError] = useState<string | null>(null);
@@ -117,15 +135,17 @@ function App() {
       </header>
       <main>
         <Outlet
-          context={{
-            shopItems,
-            loadingShop,
-            shopError,
-            addToCart,
-            cart,
-            setCart,
-            removeFromCart,
-          }}
+          context={
+            {
+              shopItems,
+              loadingShop,
+              shopError,
+              addToCart,
+              cart,
+              setCart,
+              removeFromCart,
+            } satisfies OutletContextTypes
+          }
         />
       </main>
     </>
