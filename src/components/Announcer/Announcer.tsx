@@ -1,6 +1,13 @@
 import styles from './Announcer.module.css';
 
-function Announcer({ title, text, type, onFinish }) {
+type PropTypes = {
+  title: string;
+  text: string;
+  type: string;
+  onFinish(): void;
+};
+
+function Announcer({ title, text, type, onFinish }: PropTypes) {
   return (
     <div
       className={`${styles.announcer} ${styles[type]}`}
