@@ -1,7 +1,30 @@
 import styles from './ShopItem.module.css';
 import { useState } from 'react';
+import { AnnouncerType } from '../Shop/Shop';
 
-function ShopItem({ id, title, price, imageSrc, addToCart, setAnnouncer }) {
+type PropTypes = {
+  id: number;
+  title: string;
+  price: number;
+  imageSrc: string;
+  addToCart(
+    id: number,
+    title: string,
+    imageSrc: string,
+    price: number,
+    amount: number,
+  ): void;
+  setAnnouncer: React.Dispatch<React.SetStateAction<AnnouncerType | null>>;
+};
+
+function ShopItem({
+  id,
+  title,
+  price,
+  imageSrc,
+  addToCart,
+  setAnnouncer,
+}: PropTypes) {
   const [amount, setAmount] = useState(0);
 
   return (
@@ -16,10 +39,10 @@ function ShopItem({ id, title, price, imageSrc, addToCart, setAnnouncer }) {
           className={styles['amount-input']}
           type="number"
           value={amount}
-          onChange={(event) => {
-            const input = parseInt(event.target.value);
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            const input: number = parseInt(event.target.value);
 
-            if (!input.isNan) {
+            if (!Number.isNaN(input)) {
               setAmount(input);
             }
           }}

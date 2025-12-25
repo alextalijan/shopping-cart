@@ -3,10 +3,18 @@ import ShopItem from '../ShopItem/ShopItem';
 import styles from './Shop.module.css';
 import Announcer from '../Announcer/Announcer';
 import { useState } from 'react';
+import { OutletContextTypes } from '@/App.js';
+
+export type AnnouncerType = {
+  title: string;
+  text: string;
+  type: string;
+};
 
 function Shop() {
-  const { shopItems, loadingShop, shopError, addToCart } = useOutletContext();
-  const [announcer, setAnnouncer] = useState(null);
+  const { shopItems, loadingShop, shopError, addToCart } =
+    useOutletContext<OutletContextTypes>();
+  const [announcer, setAnnouncer] = useState<AnnouncerType | null>(null);
 
   return (
     <>
