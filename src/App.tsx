@@ -9,7 +9,7 @@ type ShopItem = {
   imageSrc: string;
 };
 
-export type CartItemType = Pick<ShopItem, 'id' | 'title' | 'price'> & {
+export type CartItemType = ShopItem & {
   amount: number;
 };
 
@@ -68,6 +68,7 @@ function App() {
               id: addedItem.id,
               title: addedItem.title,
               price: addedItem.price,
+              imageSrc: addedItem.imageSrc,
               amount: item.amount + addedItem.amount,
             };
           }

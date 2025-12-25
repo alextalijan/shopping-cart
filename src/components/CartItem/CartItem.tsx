@@ -1,13 +1,13 @@
 import styles from './CartItem.module.css';
 
 type PropTypes = {
-  id: string;
+  id: number;
   title: string;
   imageSrc: string;
   price: number;
   amount: number;
   onClick(): void;
-  handleAmountChange(action: string, id: string): void;
+  handleAmountChange(action: string, id: number): void;
 };
 
 function CartItem({

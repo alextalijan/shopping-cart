@@ -1,13 +1,17 @@
 import { useOutletContext } from 'react-router-dom';
 import CartItem from '../CartItem/CartItem';
 import styles from './Cart.module.css';
+import { OutletContextTypes, CartItemType } from '@/App';
 
 function Cart() {
-  const { cart, setCart, removeFromCart } = useOutletContext();
+  const { cart, setCart, removeFromCart } =
+    useOutletContext<OutletContextTypes>();
 
-  function handleAmountChange(type, id) {
-    const item = cart.find((item) => item.id === id);
+  function handleAmountChange(type: string, id: number) {
+    const item: CartItemType | undefined = cart.find((item) => item.id === id);
     let newCart;
+
+    if (!item) return;
 
     if (type === 'increment') {
       newCart = cart.map((item) => {
@@ -39,7 +43,7 @@ function Cart() {
       <h1 className={styles.h1}>Your Cart</h1>
       <div className={styles['cart-list']}>
         {cart.length > 0 ? (
-          cart.map((item) => {
+          cart.map((item: CartItemType) => {
             return (
               <CartItem
                 key={item.id}
